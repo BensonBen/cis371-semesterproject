@@ -1,0 +1,23 @@
+{
+  "name": "homework1",
+  "version": "1.0.0",
+  "description": "homework one build process",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bensonben@bitbucket.org/bensonben/cis368-gulp.git"
+  },
+  "keywords": [
+    "homework1"
+  ],
+  "author": "benjaminbenson",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/bensonben/cis368-gulp#readme",
+  "devDependencies": {
+    "browser-sync": "^2.14.3",
+    "gulp": "^3.9.1"
+  }
+}
