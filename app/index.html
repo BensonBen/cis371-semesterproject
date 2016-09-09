@@ -2,21 +2,39 @@
 <html>
 
 <head>
-	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-	<link href="css/styles/style.css" rel="stylesheet" media="screen">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 
 <body>
-	<div class="jumbotron">
-		<h1>
-			Yay vim!
-		</h1>
-		<p>
-			Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-		</p>
-	</div>	
-<script src="http://code.jquery.com/jquery.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 id="header">
+      Benjamin Benson's Simple file directory for 371
+    </h1>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                Homework
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="http://cis.gvsu.edu/~bensonb/cis368-gulp/app/" target="_new">Homework 1</a></li>
+                <li><a href="#">Homework 2</a></li>
+                <li><a href="#">Homework 3</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                Projects
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">Project</a></li>
+            </ul>
+        </div>
+    </div>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>
