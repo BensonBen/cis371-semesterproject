@@ -1,4 +1,5 @@
 var vm = this;
-function onload(){
-	console.write("this is a test");
+
+function onload() {
+    console.log("this is a test");
 }
