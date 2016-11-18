@@ -8,6 +8,7 @@
 	$qry = mysql_query("SELECT username FROM cis371_login WHERE username =".$_POST["username"].";");
 	if ($qry == ""){
 		$ret = "Username not found!";
+		echo $ret;
 	}
 	$qry = mysql_query("SELECT password FROM cis371_login WHERE 
 		password =".$_POST["pwd"].";");
