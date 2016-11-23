@@ -4,9 +4,11 @@ var starfield;
 var speedShip;
 var control;
 
-var pewPew;
-var laserSpeed;
+var bullets;
+var laserSpeed = 0;
 var spaceBar;
+
+var enemies;
 //JSON object of functions
 
 /*
@@ -19,7 +21,10 @@ var mainState = {
 		//the first argument to the image object is "starfield id", then the path to it.
 		game.load.image('starfield','phaser/assets/starfield.png');
 		game.load.image('speedShip', 'phaser/assets/speedship.png');
-		game.load.image('pewPew','phaser/assets/particle_small.png');
+		game.load.image('bullet','phaser/assets/particle_small.png');
+		game.load.image('asteroid1','phaser/assets/asteroid1.png');
+		game.load.image('asteroid2','phaser/assets/asteroid2.png');
+		game.load.image('asteroid3','phaser/assets/asteroid3.png');
 	},
 	create:function(){
 		//arguments are 
@@ -30,14 +35,19 @@ var mainState = {
 		control = game.input.keyboard.createCursorKeys();
 
 		//group for laser's firing from the space ship
-		pewPew = game.add.group();
-		pewPew.enableBody = true;
-		pewPew.physicsBodyType = Phaser.Physics.ARCADE
-		pewPew.createMultiple(30, 'pewPew');
-		pewPew.setAll('anchor.x', 0.5);
-		pewPew.setAll('anchor.y', 1);
-		pewPew.setAll('outOfBoundsKill', true);
-		pewPew.setAll('checkWorldBounds', true);
+		bullets = game.add.group();
+		bullets.enableBody = true;
+		bullets.physicsBodyType = Phaser.Physics.ARCADE;
+		bullets.createMultiple(30, 'bullet');
+		bullets.setAll('anchor.x', 0.5);
+		bullets.setAll('anchor.y', 1);
+		bullets.setAll('outOfBoundsKill', true);
+		bullets.setAll('checkWorldBounds', true);
+
+		enemies = game.add.group();
+		enemies.enableBody = true;
+		enemies.physicsBodyType = Phaser.Physics.ARCADE;
+		createEnemies();
 
 		spaceBar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 	},
@@ -50,19 +60,46 @@ var mainState = {
 			//negative to move to the left
 			speedShip.body.velocity.x = -200;
 
-		}else if(control.right.isDown){
+		}
+		if(control.right.isDown){
 			//positive to move to the right
 			speedShip.body.velocity.x = 200;
-		}else if(spaceBar.isDown){
-			shoot();
+		}
+		if(spaceBar.isDown){
+			shot();
 		}
 	}
 }
 
 function shot(){
-	if(game.time.now > bulletTime){
-		bullet = pewPew.getFirstExists(false);
+	if(game.time.now > laserSpeed){
+		bullet = bullets.getFirstExists(false);
+		if(bullet){
+			bullet.reset(speedShip.x+32, speedShip.y);
+			bullet.body.velocity.y = -400;
+			laserSpeed = game.time.now +200;
+		}
 	}
+}
+
+function createEnemies(){
+	
+	for( var y = 0; y<4; y+=1){
+		for(var x = 0; x < 18; x++){
+			var randomEnemy = Math.floor(Math.random() * 3) + 1 ;
+			var enemy = enemies.create(x*48, y*50, 'asteroid'+randomEnemy);
+			enemy.anchor.setTo(0.5, 0.5);
+		}
+	}
+
+	enemies.x = 100;
+	enemies.y = 50;
+	var tween = game.add.tween(enemies).to({x:200}, Phaser.Easing.Linear.None, true,0,1000,true);
+	tween.onLoop.add(descend, this);
+}
+
+function descend(){
+	enemies.y += 10;
 }
 
 game.state.add('mainState', mainState);
