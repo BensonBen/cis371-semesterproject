@@ -9,6 +9,10 @@ var laserSpeed = 0;
 var spaceBar;
 
 var enemies;
+var score = 0;
+var scoreText;
+var winText;
+var vm = this;
 //JSON object of functions
 
 /*
@@ -48,11 +52,14 @@ var mainState = {
 		enemies.enableBody = true;
 		enemies.physicsBodyType = Phaser.Physics.ARCADE;
 		createEnemies();
-
+		scoreText = game.add.text(0,710, 'Score: ', {font: '32px Arial', fill: '#fff'});
+		winText = game.add.text(game.world.centerX, game.world.centerY, 'You Win!', {font: '32px Arial', fill: '#fff'});
+		winText.visible = false;
 		spaceBar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 	},
 	update:function(){
 		//updates every frame of the game.
+		game.physics.arcade.overlap(bullets, enemies, handleEnemyShot, null, this);
 		starfield.tilePosition.y += 2;
 		//
 		speedShip.body.velocity.x = 0;
@@ -68,6 +75,10 @@ var mainState = {
 		if(spaceBar.isDown){
 			shot();
 		}
+		scoreText.text = 'Score: '+ score;
+		if(score == 7200){
+			winText.visible = true;
+		}
 	}
 }
 
@@ -82,11 +93,17 @@ function shot(){
 	}
 }
 
+function handleEnemyShot(bullet, enemy){
+	bullet.kill()
+	enemy.kill();
+	score += 100;
+}
+
 function createEnemies(){
 	
 	for( var y = 0; y<4; y+=1){
 		for(var x = 0; x < 18; x++){
-			var randomEnemy = Math.floor(Math.random() * 3) + 1 ;
+			var randomEnemy = Math.floor(Math.random() * 3) + 1;
 			var enemy = enemies.create(x*48, y*50, 'asteroid'+randomEnemy);
 			enemy.anchor.setTo(0.5, 0.5);
 		}
@@ -99,7 +116,7 @@ function createEnemies(){
 }
 
 function descend(){
-	enemies.y += 10;
+	vm.enemies.y += 10;
 }
 
 game.state.add('mainState', mainState);
