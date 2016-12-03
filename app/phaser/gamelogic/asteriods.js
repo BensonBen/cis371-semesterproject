@@ -3,16 +3,21 @@ var game = new Phaser.Game(1024,768, Phaser.CANVAS, 'gameDiv');
 var starfield;
 var speedShip;
 var control;
+var levelText;
 
 var bullets;
 var laserSpeed = 0;
 var spaceBar;
 
 var enemies;
+var lifeGroup;
 var score = 0;
 var scoreText;
 var winText;
 var vm = this;
+var level= 0;
+var lives = 3;
+var livesText;
 //JSON object of functions
 
 /*
@@ -36,6 +41,7 @@ var mainState = {
 		//add the player or starship to the center of the screen
 		speedShip = game.add.sprite(game.world.centerX, game.world.centerY + 200, 'speedShip');
 		game.physics.enable(speedShip, Phaser.Physics.ARCADE);
+		speedShip.body.collideWorldBounds = true;
 		control = game.input.keyboard.createCursorKeys();
 
 		//group for laser's firing from the space ship
@@ -51,34 +57,81 @@ var mainState = {
 		enemies = game.add.group();
 		enemies.enableBody = true;
 		enemies.physicsBodyType = Phaser.Physics.ARCADE;
-		createEnemies();
-		scoreText = game.add.text(0,710, 'Score: ', {font: '32px Arial', fill: '#fff'});
-		winText = game.add.text(game.world.centerX, game.world.centerY, 'You Win!', {font: '32px Arial', fill: '#fff'});
+		makeLives();
+		scoreText = game.add.text(0,710, 'Score: ', {font: '26px Arial', fill: '#fff'});
+		levelText = game.add.text(900,710, 'Level: 0', {font: '26px Arial', fill: '#fff'});
+		winText = game.add.text(game.world.centerX, game.world.centerY, 'You died... alot', {font: '32px Arial', fill: '#fff'});
+		livesText = game.add.text(150,690, 'lives', {font: '12px Arial', fill: '#fff'});
 		winText.visible = false;
 		spaceBar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+		moveAsteroids();
+		spawnAsteroids();
 	},
 	update:function(){
 		//updates every frame of the game.
 		game.physics.arcade.overlap(bullets, enemies, handleEnemyShot, null, this);
+		game.physics.arcade.overlap(speedShip, enemies, shipCollision, null, this);
 		starfield.tilePosition.y += 2;
 		//
 		speedShip.body.velocity.x = 0;
 		if(control.left.isDown){
 			//negative to move to the left
-			speedShip.body.velocity.x = -200;
+			speedShip.body.velocity.x = -220;
 
 		}
 		if(control.right.isDown){
 			//positive to move to the right
-			speedShip.body.velocity.x = 200;
+			speedShip.body.velocity.x = 220;
+		}
+		if(control.up.isDown){
+			speedShip.body.velocity.y = -220;
+		}
+		if(control.down.isDown){
+			speedShip.body.velocity.y = 220;
 		}
 		if(spaceBar.isDown){
 			shot();
 		}
 		scoreText.text = 'Score: '+ score;
-		if(score == 7200){
-			winText.visible = true;
-		}
+		enemies.forEachAlive(function(rock){
+			rock.angle += 1;
+		}, this)
+	}
+}
+
+function makeLives(){
+	var lifeGraphic = game.add.graphics(0,0);
+	lifeGraphic.beginFill(0xFFFFFF);
+	lifeGraphic.drawRect(150,690, 180, 50);
+	lifeGraphic.alpha = .3
+	lifeGroup = this.game.add.group();
+	for(var i = 0; i < lives; i++){
+		var lifeShip = lifeGroup.create(150 + 70 * i, 700, 'speedShip');
+		lifeShip.scale.setTo(.6);
+	}
+}
+
+function shipCollision(ship, rock){
+	lives --;
+	ship.kill();
+	lifeGroup.children[lifeGroup.length - 1].destroy();
+	if(lives > 0){
+		--level;
+		this.create();
+	}
+	else if(lives == 0){
+		window.setTimeout(function(){
+				winText.visible = true;
+				game.paused = true;
+				if (confirm("Do you wish to play again?") == true) {
+				//reload the page.
+   					location.reload();
+				} else {
+    				/*
+    				* Some Jquery stuff to make a new highscore...
+    				*/
+				}
+		}, 800);
 	}
 }
 
@@ -94,29 +147,54 @@ function shot(){
 }
 
 function handleEnemyShot(bullet, enemy){
-	bullet.kill()
-	enemy.kill();
-	score += 100;
-}
-
-function createEnemies(){
-	
-	for( var y = 0; y<4; y+=1){
-		for(var x = 0; x < 18; x++){
-			var randomEnemy = Math.floor(Math.random() * 3) + 1;
-			var enemy = enemies.create(x*48, y*50, 'asteroid'+randomEnemy);
-			enemy.anchor.setTo(0.5, 0.5);
-		}
+	enemy.destroy();
+	bullet.kill();
+	score += 1;
+	if(enemies.length === 0){
+		spawnAsteroids()
 	}
-
-	enemies.x = 100;
-	enemies.y = 50;
-	var tween = game.add.tween(enemies).to({x:200}, Phaser.Easing.Linear.None, true,0,1000,true);
-	tween.onLoop.add(descend, this);
 }
 
 function descend(){
 	vm.enemies.y += 10;
+}
+
+function spawnAsteroids(){
+	level ++;
+	for(var i = 0; i < 10 + level * 4; i++){
+		var randomEnemy = Math.floor(Math.random() * 3) + 1;
+		var enemy = enemies.create(this.game.rnd.integerInRange(100, 900), 
+			this.game.rnd.integerInRange(50, 200), 'asteroid'+randomEnemy)
+		enemy.anchor.setTo(0.5, 0.5);
+		enemy.body.collideWorldBounds = true;
+		enemy.body.bounce.setTo(.9, .9)
+		enemy.level = level;
+		enemy.scale.set(this.game.rnd.integerInRange(.7, 1.5));
+
+	}
+	changeVelocity();
+	levelText.setText('Level: ' + level)
+	//game.time.events.add(5000 - level * 100, spawnAsteroids, this)
+}
+
+function moveAsteroids(){
+	enemies.forEachAlive(function(rock){
+		xVelocity = this.game.rnd.integerInRange(-50, 50);
+		yVelocity = this.game.rnd.integerInRange(0, 50);
+		rock.body.velocity.x = xVelocity;
+		rock.body.velocity.y = yVelocity;
+	}, this)
+
+}
+
+function changeVelocity(){
+	enemies.forEachAlive(function(rock){
+		rock.body.velocity.x = this.game.rnd.integerInRange(-50 - rock.level * 5, 50 + rock.level * 5);
+		if(rock.y < 500)
+			rock.body.velocity.y = this.game.rnd.integerInRange(-25 + rock.level * 5, 50 + rock.level * 5);
+		else
+			rock.body.velocity.y = this.game.rnd.integerInRange(-60 + rock.level * 5, 20 + rock.level * 5);	
+	}, this)
 }
 
 game.state.add('mainState', mainState);
