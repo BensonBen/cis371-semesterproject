@@ -11,7 +11,7 @@
       'VALUES ('$name', '$score')';
       
       mysql_selectdb("zelaskoj", $con);
-      $retval = mysql_query( $sql, $conn );
+      $retval = mysql_query( $sql, $con );
       
       if(! $retval ) {
     	die ('Could not enter data: ' . mysql_error());
