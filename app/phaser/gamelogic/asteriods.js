@@ -74,6 +74,7 @@ var mainState = {
 		starfield.tilePosition.y += 2;
 		//
 		speedShip.body.velocity.x = 0;
+		speedShip.body.velocity.y = 0;
 		if(control.left.isDown){
 			//negative to move to the left
 			speedShip.body.velocity.x = -220;
@@ -123,13 +124,18 @@ function shipCollision(ship, rock){
 		window.setTimeout(function(){
 				winText.visible = true;
 				game.paused = true;
+				if (confirm("Submit high score?") == true){
+					var name = prompt("Please enter your name:");
+					if (name != null){
+						document.getElementByID("name").value = name;
+						document.getElementByID("score").value = score;
+						document.getElementByID("scoreform").submit();
+					}
+				}
 				if (confirm("Do you wish to play again?") == true) {
-				//reload the page.
    					location.reload();
 				} else {
-    				/*
-    				* Some Jquery stuff to make a new highscore...
-    				*/
+				
 				}
 		}, 800);
 	}
