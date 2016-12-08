@@ -12,6 +12,7 @@ if (!$conn) {
 }
 
 $sql = "SELECT * FROM highscores ORDER BY scores DESC";
+mysql_selectdb($dbname);
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
