@@ -2,9 +2,17 @@
 <html>
 <head>
 <title>High Scores</title>
+<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="../css/DisplayTable.css" rel="stylesheet" media="screen">
 </head>
 <body>
-<a href="../index.html">Return to Game</a>
+<div class="center-text">
+<a class="btn btn-success" href="../index.html"><span class="glyphicon glyphicon-arrow-left" ></span>&nbsp; Return to Game</a>
+</div>
+<div id="table-div">
+<table class="table table-striped" width ="%50">
+
+
 <?php
 $servername = "cis.gvsu.edu";
 $username = "zelaskoj";
@@ -22,32 +30,36 @@ $sql = "SELECT * FROM highscores ORDER BY score DESC";
 
 $result = $conn->query($sql);
 
-echo "<div>";
-echo "<table>";
-echo "<caption>High Scores</caption>";
 echo "<thead>";
 echo "<tr>";
+echo "<th>Rank</th>";
 echo "<th>Name</th>" ;
 echo "<th>Score</th>" ;
 echo "</tr>";
 echo "</thead>";
 echo "<tbody>";
 
+
 if ($result->num_rows > 0) {
     // output data of each row
+    $rank = 1;
     while($row = $result->fetch_assoc()) {
         echo "<tr>";
+        echo "<td>".$rank."</td>";
         echo "<td>" .$row['name'] ."</td>";
         echo "<td>" .$row['score'] ."</td>";
+        $rank = $rank +1;
         echo "</tr>";
         }
         echo "</tbody>";
         echo "</table>";
         echo "</div>";
-} else {
-    echo "0 results";
 }
 $conn->close();
 ?>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+</div>
 </body>
 </html>
