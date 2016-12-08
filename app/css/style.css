@@ -12,3 +12,5 @@ body{
 	color: black;
 	background-color: black !important;
 	}
+
+canvas {   display : block;   margin : auto;}
