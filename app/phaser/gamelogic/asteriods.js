@@ -8,6 +8,7 @@ var levelText;
 var bullets;
 var laserSpeed = 0;
 var spaceBar;
+var shotsFired = 0;
 
 var enemies;
 var lifeGroup;
@@ -129,6 +130,7 @@ function shipCollision(ship, rock){
 					if (name != null){
 						document.getElementById("name").value = name;
 						document.getElementById("score").value = score;
+						document.getElementById("accuracy").value = score / shotsFired;
 						document.getElementById("scoreform").submit();
 					}
 				}
@@ -148,6 +150,7 @@ function shot(){
 			bullet.reset(speedShip.x+32, speedShip.y);
 			bullet.body.velocity.y = -400;
 			laserSpeed = game.time.now +200;
+			shotsFired += 1;
 		}
 	}
 }
