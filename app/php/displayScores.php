@@ -11,7 +11,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "SELECT * FROM highscores";
+$sql = "SELECT * FROM highscores ORDER BY scores DESC;";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
