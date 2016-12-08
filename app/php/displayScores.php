@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>High Scores</title>
+</head>
+<body>
+<a href="../index.html">Return to Game</a>
 <?php
 $servername = "cis.gvsu.edu";
 $username = "zelaskoj";
@@ -10,7 +17,6 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-
 $sql = "SELECT * FROM highscores ORDER BY scores DESC";
 
 $result = $conn->query($sql);
@@ -37,8 +43,10 @@ if ($result->num_rows > 0) {
         echo "</tbody>";
         echo "</table>";
         echo "</div>";
-} else 
+} else {
     echo "0 results";
 }
 $conn->close();
 ?>
+</body>
+</html>
