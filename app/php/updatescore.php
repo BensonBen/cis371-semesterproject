@@ -15,7 +15,7 @@
 			$name = $_POST['name'];
 			$score = intval($_POST['score']);
 	
-			$sql = "INSERT INTO highscores (name, score) VALUES ('$name' , '$score')";
+			$sql = "INSERT INTO highscores (name, score, accuracy) VALUES ('$name' , '$score', '$accuracy')";
       
       		if($con->query($sql) === TRUE) {
     			echo "Thanks for playing!";
