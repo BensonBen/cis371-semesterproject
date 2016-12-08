@@ -12,17 +12,33 @@ if (!$conn) {
 }
 
 $sql = "SELECT * FROM highscores ORDER BY scores DESC";
-mysql_selectdb($dbname);
-$result = mysqli_query($conn, $sql);
 
-if (mysqli_num_rows($result) > 0) {
+$result = $conn->query($sql);
+
+echo "<div>";
+echo "<table>";
+echo "<caption>High Scores</caption>";
+echo "<thead>";
+echo "<tr>";
+echo "<th>Name</th>" ;
+echo "<th>Score</th>" ;
+echo "</tr>";
+echo "</thead>";
+echo "<tbody>";
+
+if ($result->num_rows > 0) {
     // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        echo $row["name"]. "	" . $row["score"]. "<br>";
-    }
+    while($row = $result->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" .$row['name'] ."</td>";
+        echo "<td>" .$row['score'] ."</td>";
+        echo "</tr>";
+        }
+        echo "</tbody>";
+        echo "</table>";
+        echo "</div>";
 } else 
     echo "0 results";
 }
-
-mysqli_close($conn);
+$conn->close();
 ?>
