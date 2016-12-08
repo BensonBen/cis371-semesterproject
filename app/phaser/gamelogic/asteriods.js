@@ -127,15 +127,15 @@ function shipCollision(ship, rock){
 				if (confirm("Submit high score?") == true){
 					var name = prompt("Please enter your name:");
 					if (name != null){
-						document.getElementByID("name").value = name;
-						document.getElementByID("score").value = score;
-						document.getElementByID("scoreform").submit();
+						document.getElementById("name").value = name;
+						document.getElementById("score").value = score;
+						document.getElementById("scoreform").submit();
 					}
 				}
 				if (confirm("Do you wish to play again?") == true) {
    					location.reload();
 				} else {
-				
+					
 				}
 		}, 800);
 	}

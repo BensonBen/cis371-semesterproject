@@ -1,23 +1,25 @@
-<?php 
-	$con = mysql_connect("cis.gvsu.edu","zelaskoj","zelaskoj1835");
-	if (!$con){
-		die('Could not connect: '. mysql_error());
-	}
+<html>
+	<body>
+		<?php
 	
-	$name = $_POST['name'];
-	$score = $_POST['score'];
-	$sql = 'INSERT INTO highscores '.
-      '(name, score) '.
-      'VALUES ('$name', '$score')';
+			$con = mysqli_connect("cis.gvsu.edu","zelaskoj","zelaskoj1835", "zelaskoj");
+			if (!$con){
+				die('Could not connect: '. mysqli_connect_error());
+			}
+	
+			$name = $_POST['name'];
+			$score = intval($_POST['score']);
+	
+			$sql = "INSERT INTO highscores (name, score) VALUES ('$name' , '$score')";
       
-      mysql_selectdb("zelaskoj", $con);
-      $retval = mysql_query( $sql, $con );
+      		if($con->query($sql) === TRUE) {
+    			echo "New record created successfully.\n";
+      		}
+    			else{echo "Adding failed!";}
       
-      if(! $retval ) {
-    	die ('Could not enter data: ' . mysql_error());
-      }
-      
-      echo "High score table updated!\n";
-      
-      mysql_close($con);
-?>
+      		$con->close();
+		?>
+		<a href="../index.html">Play Again</a>
+		<a href="displayScores.php">View High Scores</a>
+	</body>
+</html>
