@@ -60,7 +60,7 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
    
-<div class ="row center-text">
+<div class ="button-div">
     <a class="btn btn-success" href="displayByAcc.php">&nbsp; Sort by Accuracy &nbsp;<span class="glyphicon glyphicon-repeat"></span></a>
 </div>
 
