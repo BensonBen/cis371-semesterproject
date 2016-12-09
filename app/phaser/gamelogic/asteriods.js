@@ -63,7 +63,7 @@ var mainState = {
 		enemies.physicsBodyType = Phaser.Physics.ARCADE;
 		makeLives();
 		scoreText = game.add.text(0,710, 'Score: ', {font: '26px Arial', fill: '#fff'});
-		accText = game.add.text(0, 610, 'Accuracy: ', {font: '26px Arial', fill: '#fff'});
+		accText = game.add.text(0, 660, 'Accuracy: ', {font: '26px Arial', fill: '#fff'});
 		levelText = game.add.text(900,710, 'Level: 0', {font: '26px Arial', fill: '#fff'});
 		winText = game.add.text(game.world.centerX, game.world.centerY, 'You died... alot', {font: '32px Arial', fill: '#fff'});
 		livesText = game.add.text(150,690, 'lives', {font: '12px Arial', fill: '#fff'});
