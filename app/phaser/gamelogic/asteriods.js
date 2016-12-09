@@ -65,6 +65,7 @@ var mainState = {
 		livesText = game.add.text(150,690, 'lives', {font: '12px Arial', fill: '#fff'});
 		winText.visible = false;
 		spaceBar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+		p = game.input.keyboard.addKey(Phaser.Keyboard.P);
 		moveAsteroids();
 		spawnAsteroids();
 	},
@@ -93,6 +94,12 @@ var mainState = {
 		}
 		if(spaceBar.isDown){
 			shot();
+		}
+		if(p.onDown){
+			if game.paused = true{
+				game.pause = false;
+			}
+			else game.paused = true;
 		}
 		scoreText.text = 'Score: '+ score;
 		enemies.forEachAlive(function(rock){
