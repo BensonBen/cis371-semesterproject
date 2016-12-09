@@ -10,7 +10,7 @@ var laserSpeed = 0;
 var spaceBar;
 var p;
 var shotsFired = 0;
-var accuracy = 0.toFixed(2);
+var accuracy = 0;
 
 var enemies;
 var lifeGroup;
