@@ -106,7 +106,7 @@ var mainState = {
 			else game.paused = false;
 		}
 		scoreText.text = 'Score: '+ score;
-		accText.text = 'Accuracy: '+ accuracy.toFixed(2) + '%';
+		accText.text = 'Accuracy: '+ accuracy + '%';
 		enemies.forEachAlive(function(rock){
 			rock.angle += 1;
 		}, this)
@@ -163,7 +163,7 @@ function shot(){
 			bullet.body.velocity.y = -400;
 			laserSpeed = game.time.now +200;
 			shotsFired += 1;
-			accuracy = (score / shotsFired) * 100;
+			accuracy = ((score / shotsFired) * 100).toFixed(2);
 		}
 	}
 }
@@ -172,7 +172,7 @@ function handleEnemyShot(bullet, enemy){
 	enemy.destroy();
 	bullet.kill();
 	score += 1;
-	accuracy = (score / shotsFired) * 100;
+	accuracy = ((score / shotsFired) * 100).toFixed(2);
 	if(enemies.length === 0){
 		spawnAsteroids()
 	}
