@@ -9,6 +9,9 @@
 <div class="center-text">
 <a class="btn btn-success" href="../index.html"><span class="glyphicon glyphicon-arrow-left" ></span>&nbsp; Return to Game</a>
 </div>
+<div class ="row center-text">
+    <a class="btn btn-success" href="php/displayScores.php">Sort by High Score<span class="glyphicon glyphicon-repeat"></span></a>
+</div>
 <div id="table-div">
 <table class="table table-striped" width ="%50">
 
@@ -59,11 +62,7 @@ if ($result->num_rows > 0) {
 }
 $conn->close();
 ?>
-   
-<div class ="row center-text">
-    <a class="btn btn-success" href="php/displayScores.php">Sort by High Score<span class="glyphicon glyphicon-repeat"></span></a>
-</div>
-
+    
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 </div>
