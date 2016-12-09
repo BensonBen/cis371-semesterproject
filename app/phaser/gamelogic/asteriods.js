@@ -10,11 +10,13 @@ var laserSpeed = 0;
 var spaceBar;
 var p;
 var shotsFired = 0;
+var accuracy;
 
 var enemies;
 var lifeGroup;
 var score = 0;
 var scoreText;
+var accText;
 var winText;
 var vm = this;
 var level= 0;
@@ -61,6 +63,7 @@ var mainState = {
 		enemies.physicsBodyType = Phaser.Physics.ARCADE;
 		makeLives();
 		scoreText = game.add.text(0,710, 'Score: ', {font: '26px Arial', fill: '#fff'});
+		accText = game.add.text(0, 610, 'Accuracy: ', {font: '26px Arial', fill: "#fff});
 		levelText = game.add.text(900,710, 'Level: 0', {font: '26px Arial', fill: '#fff'});
 		winText = game.add.text(game.world.centerX, game.world.centerY, 'You died... alot', {font: '32px Arial', fill: '#fff'});
 		livesText = game.add.text(150,690, 'lives', {font: '12px Arial', fill: '#fff'});
@@ -103,6 +106,7 @@ var mainState = {
 			else game.paused = false;
 		}
 		scoreText.text = 'Score: '+ score;
+		accText.text = 'Accuracy: '+ accuracy + '%';
 		enemies.forEachAlive(function(rock){
 			rock.angle += 1;
 		}, this)
@@ -159,6 +163,7 @@ function shot(){
 			bullet.body.velocity.y = -400;
 			laserSpeed = game.time.now +200;
 			shotsFired += 1;
+			accuracy = (score / shotsFired) * 100;
 		}
 	}
 }
@@ -167,6 +172,7 @@ function handleEnemyShot(bullet, enemy){
 	enemy.destroy();
 	bullet.kill();
 	score += 1;
+	accuracy = (score / shotsFired) * 100;
 	if(enemies.length === 0){
 		spawnAsteroids()
 	}
