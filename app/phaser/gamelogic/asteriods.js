@@ -97,10 +97,10 @@ var mainState = {
 			shot();
 		}
 		if(p.onDown){
-			if game.paused = true{
-				game.pause = false;
+			if game.paused = false{
+				game.paused = true;
 			}
-			else game.paused = true;
+			else game.paused = false;
 		}
 		scoreText.text = 'Score: '+ score;
 		enemies.forEachAlive(function(rock){
