@@ -8,6 +8,19 @@
 .center-text {
   text-align: center; }
 
+.center-everything {
+  text-align: center;
+  position : absolute;top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+}
+
+.thanks {
+  color : "#ffffff";
+  font-size : 48;
+}
+
 body{
 	color: black;
 	background-color: black !important;
