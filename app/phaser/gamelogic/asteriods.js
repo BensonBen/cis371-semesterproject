@@ -10,7 +10,7 @@ var laserSpeed = 0;
 var spaceBar;
 var p;
 var shotsFired = 0;
-var accuracy;
+var accuracy = 0.toFixed(2);
 
 var enemies;
 var lifeGroup;
@@ -146,10 +146,8 @@ function shipCollision(ship, rock){
 						document.getElementById("scoreform").submit();
 					}
 				}
-				if (confirm("Do you wish to play again?") == true) {
+				else (confirm("Do you wish to play again?") == true) {
    					location.reload();
-				} else {
-					
 				}
 		}, 800);
 	}
