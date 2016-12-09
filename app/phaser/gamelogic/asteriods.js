@@ -106,7 +106,7 @@ var mainState = {
 			else game.paused = false;
 		}
 		scoreText.text = 'Score: '+ score;
-		accText.text = 'Accuracy: '+ accuracy + '%';
+		accText.text = 'Accuracy: '+ accuracy.toFixed(2) + '%';
 		enemies.forEachAlive(function(rock){
 			rock.angle += 1;
 		}, this)
