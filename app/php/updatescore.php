@@ -14,6 +14,7 @@
 	
 			$name = $_POST['name'];
 			$score = intval($_POST['score']);
+			$accuracy = floatval($_POST['accuracy']);
 	
 			$sql = "INSERT INTO highscores (name, score, accuracy) VALUES ('$name' , '$score', '$accuracy')";
       
