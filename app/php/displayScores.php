@@ -61,7 +61,7 @@ $conn->close();
 ?>
    
 <div class ="row center-text">
-    <a class="btn btn-success" href="displayByAcc.php">Sort by Accuracy<span class="glyphicon glyphicon-repeat"></span></a>
+    <a class="btn btn-success" href="displayByAcc.php">&nbsp; Sort by Accuracy &nbsp;<span class="glyphicon glyphicon-repeat"></span></a>
 </div>
 
 <script src="http://code.jquery.com/jquery.js"></script>
