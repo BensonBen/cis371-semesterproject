@@ -49,7 +49,7 @@ if ($result->num_rows > 0) {
         echo "<td>".$rank."</td>";
         echo "<td>" .$row['name'] ."</td>";
         echo "<td>" .$row['score'] ."</td>";
-        echo "<td>" .$row['accuracy'] ."</td>";
+        echo "<td>" .$row['accuracy'] ."%"."</td>";
         $rank = $rank +1;
         echo "</tr>";
         }
