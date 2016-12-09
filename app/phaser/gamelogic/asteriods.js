@@ -142,7 +142,7 @@ function shipCollision(ship, rock){
 					if (name != null){
 						document.getElementById("name").value = name;
 						document.getElementById("score").value = score;
-						document.getElementById("accuracy").value = score / shotsFired;
+						document.getElementById("accuracy").value = accuracy;
 						document.getElementById("scoreform").submit();
 					}
 				}
