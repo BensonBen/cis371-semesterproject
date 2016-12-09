@@ -100,7 +100,7 @@ var mainState = {
 			shot();
 		}
 		if(p.onDown){
-			if game.paused = false{
+			if (game.paused = false){
 				game.paused = true;
 			}
 			else game.paused = false;
