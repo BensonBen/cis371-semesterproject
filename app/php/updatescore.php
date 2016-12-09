@@ -28,7 +28,7 @@
 		<div class ="center-everything">
 			<p class="thanks">Thanks for playing!</p>
 			<a class="btn btn-success" href="../index.html"><span class="glyphicon glyphicon-arrow-left" ></span>&nbsp; Return to Game</a>
-       		 	<a class="btn btn-success" href="displayScores.php"> View High Scores<span class="glyphicon glyphicon-arrow-right"></span></a>
+       		 	<a class="btn btn-success" href="displayScores.php"> View High Scores &nbsp;<span class="glyphicon glyphicon-arrow-right"></span></a>
     		</div>
 	</body>
 </html>
