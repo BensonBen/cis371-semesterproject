@@ -20,7 +20,7 @@
 			$sql = "INSERT INTO highscores (name, score, accuracy) VALUES ('$name' , '$score', '$accuracy')";
       
       		if($con->query($sql) === TRUE) {
-    			echo "<div class="row center-text"><strong>Thanks for playing!</strong></div>";
+    			echo "Thanks for playing!";
       		}
     			else{echo "Adding failed!";}
       
