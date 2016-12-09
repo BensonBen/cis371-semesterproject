@@ -146,7 +146,7 @@ function shipCollision(ship, rock){
 						document.getElementById("scoreform").submit();
 					}
 				}
-				else (confirm("Do you wish to play again?") == true) {
+				else if(confirm("Do you wish to play again?") == true) {
    					location.reload();
 				}
 		}, 800);
