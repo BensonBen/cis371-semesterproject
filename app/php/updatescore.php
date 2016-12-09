@@ -2,6 +2,7 @@
 	<head>
 		<title>Menu</title>
 		<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="../css/style.css" rel="stylesheet" media="screen">
 	</head>
 	<body>
 		
@@ -19,7 +20,7 @@
 			$sql = "INSERT INTO highscores (name, score, accuracy) VALUES ('$name' , '$score', '$accuracy')";
       
       		if($con->query($sql) === TRUE) {
-    			echo "Thanks for playing!";
+    			echo "<div class="row center-text"><strong>Thanks for playing!</strong></div>";
       		}
     			else{echo "Adding failed!";}
       
