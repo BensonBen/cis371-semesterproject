@@ -8,6 +8,7 @@ var levelText;
 var bullets;
 var laserSpeed = 0;
 var spaceBar;
+var p;
 var shotsFired = 0;
 
 var enemies;
